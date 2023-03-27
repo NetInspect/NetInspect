@@ -13,14 +13,14 @@ namespace NetInspectApp.Views.Pages
     /// <summary>
     /// Interaction logic for DataView.xaml
     /// </summary>
-    public partial class PortScanPage : INavigableView<ViewModels.PortScanViewModel>
+    public partial class DNSScanPage : INavigableView<ViewModels.PortScanViewModel>
     {
         public ViewModels.PortScanViewModel ViewModel
         {
             get;
         }
 
-        public PortScanPage(ViewModels.PortScanViewModel viewModel)
+        public DNSScanPage(ViewModels.PortScanViewModel viewModel)
         {
             ViewModel = viewModel;
 
@@ -36,20 +36,6 @@ namespace NetInspectApp.Views.Pages
                 get => (string)GetValue(PlaceholderTextProperty);
                 set => SetValue(PlaceholderTextProperty, value);
             }
-        }
-
-        /////
-
-        public class PortScanResult
-        {
-            public string IpAddress { get; set; }
-            public int PortNumber { get; set; }
-            public bool IsOpen { get; set; }
-        }
-
-        private async void ScanButton_Click(object sender, RoutedEventArgs e)
-        {
-           
         }
 
 

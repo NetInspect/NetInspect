@@ -63,6 +63,13 @@ namespace NetInspectApp.ViewModels
                     PageTag = "portscan",
                     Icon = SymbolRegular.GlanceDefault12,
                     PageType = typeof(Views.Pages.PortScanPage)
+                },
+                new NavigationItem()
+                {
+                    Content = "DNSScan",
+                    PageTag = "dnsscan",
+                    Icon = SymbolRegular.GlanceDefault12,
+                    PageType = typeof(Views.Pages.DNSScanPage)
                 }
             };
 

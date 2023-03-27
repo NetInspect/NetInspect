@@ -57,6 +57,8 @@ namespace NetInspectApp
                 services.AddScoped<ViewModels.arpViewModel>();
                 services.AddScoped<Views.Pages.PortScanPage>();
                 services.AddScoped<ViewModels.PortScanViewModel>();
+                services.AddScoped<Views.Pages.DNSScanPage>();
+                services.AddScoped<ViewModels.DNSScanViewModel>();
 
 
                 // Configuration
