@@ -45,28 +45,28 @@ namespace NetInspectApp.ViewModels
                 },
                 new NavigationItem()
                 {
-                    Content = "ICMP",
+                    Content = "ICMP Scan",
                     PageTag = "icmp",
                     Icon = SymbolRegular.AppGeneric20,
                     PageType = typeof(Views.Pages.icmpPage)
                 },
                          new NavigationItem()
                 {
-                    Content = "ARP",
+                    Content = "ARP Scan",
                     PageTag = "arp",
                     Icon = SymbolRegular.DataHistogram24,
                     PageType = typeof(Views.Pages.arpPage)
                 },
                 new NavigationItem()
                 {
-                    Content = "PortScan",
+                    Content = "Port Scan",
                     PageTag = "portscan",
                     Icon = SymbolRegular.GlanceDefault12,
                     PageType = typeof(Views.Pages.PortScanPage)
                 },
                 new NavigationItem()
                 {
-                    Content = "DNSScan",
+                    Content = "DNS - Lookup",
                     PageTag = "dnsscan",
                     Icon = SymbolRegular.GlanceDefault12,
                     PageType = typeof(Views.Pages.DNSScanPage)
