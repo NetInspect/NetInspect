@@ -59,6 +59,11 @@ namespace NetInspectApp
                 services.AddScoped<ViewModels.PortScanViewModel>();
                 services.AddScoped<Views.Pages.DNSScanPage>();
                 services.AddScoped<ViewModels.DNSScanViewModel>();
+                services.AddScoped<Views.Pages.whoisPage>();
+                services.AddScoped<ViewModels.whoisViewModel>();
+                services.AddScoped<Views.Pages.udpPage>();
+                services.AddScoped<ViewModels.udpScanViewModel>();
+
 
 
                 // Configuration

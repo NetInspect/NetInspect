@@ -47,21 +47,21 @@ namespace NetInspectApp.ViewModels
                 {
                     Content = "ICMP Scan",
                     PageTag = "icmp",
-                    Icon = SymbolRegular.AppGeneric20,
+                    Icon = SymbolRegular.NetworkCheck24,
                     PageType = typeof(Views.Pages.icmpPage)
                 },
                          new NavigationItem()
                 {
                     Content = "ARP Scan",
                     PageTag = "arp",
-                    Icon = SymbolRegular.DataHistogram24,
+                    Icon = SymbolRegular.SoundWaveCircle20,
                     PageType = typeof(Views.Pages.arpPage)
                 },
                 new NavigationItem()
                 {
                     Content = "Port Scan",
                     PageTag = "portscan",
-                    Icon = SymbolRegular.GlanceDefault12,
+                    Icon = SymbolRegular.SerialPort16,
                     PageType = typeof(Views.Pages.PortScanPage)
                 },
                 new NavigationItem()
@@ -70,6 +70,20 @@ namespace NetInspectApp.ViewModels
                     PageTag = "dnsscan",
                     Icon = SymbolRegular.GlanceDefault12,
                     PageType = typeof(Views.Pages.DNSScanPage)
+                },
+                      new NavigationItem()
+                {
+                    Content = "Whois Scan",
+                    PageTag = "whois",
+                    Icon = SymbolRegular.Search20,
+                    PageType = typeof(Views.Pages.whoisPage)
+                },
+                      new NavigationItem()
+                {
+                    Content = "UDP Scan",
+                    PageTag = "udpscan",
+                    Icon = SymbolRegular.SoundWaveCircle24,
+                    PageType = typeof(Views.Pages.udpPage)
                 }
             };
 
