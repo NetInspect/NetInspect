@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net6.0-windows</TargetFramework>
+    <TargetFramework>net7.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <LangVersion>10.0</LangVersion>
     <UseWPF>true</UseWPF>
@@ -24,6 +24,12 @@
     <None Remove="Assets\applicationIcon-1024.png" />
     <None Remove="Assets\applicationIcon-256.png" />
     <None Remove="Assets\NetInspect.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="NetInspectLib">
+      <HintPath>..\..\..\NetInspectLib\bin\Debug\net7.0\NetInspectLib.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
   <ItemGroup>

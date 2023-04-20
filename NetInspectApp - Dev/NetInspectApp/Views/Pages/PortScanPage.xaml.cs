@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using Wpf.Ui.Common.Interfaces;
-using Wpf.Ui.Mvvm.Interfaces;
+
+using NetInspectLib.Scanning;
+using System.Threading.Tasks;
 
 namespace NetInspectApp.Views.Pages
 {
@@ -26,6 +23,7 @@ namespace NetInspectApp.Views.Pages
 
             InitializeComponent();
         }
+
         public class PlaceholderTextBox : TextBox
         {
             public static readonly DependencyProperty PlaceholderTextProperty = DependencyProperty.Register(
@@ -42,17 +40,39 @@ namespace NetInspectApp.Views.Pages
 
         public class PortScanResult
         {
-            public string IpAddress { get; set; }
+            public string? IpAddress { get; set; }
             public int PortNumber { get; set; }
-            public bool IsOpen { get; set; }
+            public string? Status { get; set; }
+            public string? Other { get; set; }
         }
 
         private async void ScanButton_Click(object sender, RoutedEventArgs e)
         {
-           
+            ResultsDataGrid.Items.Clear();
+            PortScan scaner = new PortScan();
+            Task<bool> scan = scaner.DoPortScan(HostTextBox.Text, PortsTextBox.Text);
+            bool success = await scan;
+            if (success)
+            {
+                foreach (var host in scaner.results)
+                {
+                    foreach (var port in host.GetPorts())
+                    {
+                        var row = new PortScanResult
+                        {
+                            IpAddress = host.GetIPAddress().ToString(),
+                            PortNumber = port.Number,
+                            Status = "Open",
+                            Other = port.Name
+                        };
+                        ResultsDataGrid.Items.Add(row);
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Error");
+            }
         }
-
-
     }
 }
-

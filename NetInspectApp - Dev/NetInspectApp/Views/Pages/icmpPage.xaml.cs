@@ -1,18 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using Wpf.Ui.Common.Interfaces;
+
+using NetInspectLib.Discovery;
+using System.Threading.Tasks;
 
 namespace NetInspectApp.Views.Pages
 {
@@ -32,6 +24,7 @@ namespace NetInspectApp.Views.Pages
 
             InitializeComponent();
         }
+
         public class PlaceholderTextBox : TextBox
         {
             public static readonly DependencyProperty PlaceholderTextProperty = DependencyProperty.Register(
@@ -44,6 +37,27 @@ namespace NetInspectApp.Views.Pages
             }
         }
 
+        public class IcmpScanResult
+        {
+            public string IpAddress { get; set; }
+        }
 
+        private async void Button_Click(object sender, RoutedEventArgs e)
+        {
+            ICMPScan scaner = new ICMPScan(HostTextBox2.Text);
+            Task<bool> scan = scaner.DoScan();
+            bool success = await scan;
+            if (success)
+            {
+                foreach (var host in scaner.results)
+                {
+                    var row = new IcmpScanResult
+                    {
+                        IpAddress = host.GetIPAddress().ToString(),
+                    };
+                    ResultsDataGrid.Items.Add(row);
+                }
+            }
+        }
     }
 }

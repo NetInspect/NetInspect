@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using Wpf.Ui.Common.Interfaces;
@@ -26,6 +27,7 @@ namespace NetInspectApp.Views.Pages
 
             InitializeComponent();
         }
+
         public class PlaceholderTextBox : TextBox
         {
             public static readonly DependencyProperty PlaceholderTextProperty = DependencyProperty.Register(
@@ -38,7 +40,32 @@ namespace NetInspectApp.Views.Pages
             }
         }
 
+        public class DnsResult
+        {
+            public string? HostName { get; set; }
+            public string? IpAddress { get; set; }
+            public string? Type { get; set; }
+            public int TTL { get; set; }
+        }
 
+        private async void Button_Click(object sender, RoutedEventArgs e)
+        {
+            DnsLookup lookup = new DnsLookup(HostTextBox2.Text);
+            Task<bool> task = lookup.DoLookup();
+            bool success = await task;
+            if (success)
+            {
+                foreach (var record in lookup.records)
+                {
+                    var row = new DnsResult
+                    {
+                        HostName = record.Host.GetHostname(),
+                        IpAddress = record.Host.GetIPAddress().ToString(),
+                        Type = record.RecordType,
+                        TTL = record.TTL,
+                    };
+                }
+            }
+        }
     }
 }
-
