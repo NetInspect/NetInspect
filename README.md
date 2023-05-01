@@ -13,4 +13,4 @@
 ### The Net Inspect Application was made with the following:
 * Visual Studio 2022
 * <a href="https://wpfui.lepo.co/">WPF-UI Framework</a>
-* .NET 6/7
+* .NET 7
