@@ -1,27 +1,26 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using Wpf.Ui.Common.Interfaces;
-using Wpf.Ui.Mvvm.Interfaces;
+using System.Collections.Generic;
+using DnsClient;
+using DnsClient.Protocol;
+using NetInspectLib.Types;
+
 
 namespace NetInspectApp.Views.Pages
 {
     /// <summary>
     /// Interaction logic for DataView.xaml
     /// </summary>
-    public partial class DNSScanPage : INavigableView<ViewModels.PortScanViewModel>
+    public partial class DNSScanPage : INavigableView<ViewModels.DNSScanViewModel>
     {
-        public ViewModels.PortScanViewModel ViewModel
+        public ViewModels.DNSScanViewModel ViewModel
         {
             get;
         }
 
-        public DNSScanPage(ViewModels.PortScanViewModel viewModel)
+        public DNSScanPage(ViewModels.DNSScanViewModel viewModel)
         {
             ViewModel = viewModel;
 
@@ -42,30 +41,44 @@ namespace NetInspectApp.Views.Pages
 
         public class DnsResult
         {
-            public string? HostName { get; set; }
-            public string? IpAddress { get; set; }
-            public string? Type { get; set; }
-            public int TTL { get; set; }
+            public string DomainName { get; set; }
+            public string RecordClass { get; set; }
+            public string RecordType { get; set; }
+            public string TimeToLive { get; set; }
+            public string Data { get; set; }
         }
 
-        private async void Button_Click(object sender, RoutedEventArgs e)
+
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
-            DnsLookup lookup = new DnsLookup(HostTextBox2.Text);
-            Task<bool> task = lookup.DoLookup();
-            bool success = await task;
-            if (success)
+            string domain = HostTextBox1.Text;
+            string dnsServer = HostTextBox2.Text;
+            DnsLookup lookup = new DnsLookup(dnsServer);
+            List<DnsResult> results = new List<DnsResult>();
+            List<string> lookupResults = lookup.DoDNSLookup(domain);
+            foreach (string result in lookupResults)
             {
-                foreach (var record in lookup.records)
+                if (result.StartsWith("Query type: "))
                 {
-                    var row = new DnsResult
+                    // Ignore the query type message
+                    continue;
+                }
+                string[] parts = result.Split(' ');
+                if (parts.Length > 4)
+                {
+                    DnsResult dnsResult = new DnsResult
                     {
-                        HostName = record.Host.GetHostname(),
-                        IpAddress = record.Host.GetIPAddress().ToString(),
-                        Type = record.RecordType,
-                        TTL = record.TTL,
+                        DomainName = parts[0],
+                        RecordClass = parts[1],
+                        RecordType = parts[2],
+                        TimeToLive = parts[3],
+                        Data = parts[4]
                     };
+                    results.Add(dnsResult);
                 }
             }
+            //ViewModel.Results = results;
         }
+
     }
 }

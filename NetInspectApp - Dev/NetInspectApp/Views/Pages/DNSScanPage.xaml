@@ -7,7 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="clr-namespace:NetInspectApp.Models"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-    Title="PortScanPage"
+    Title="DNSScanPage"
     d:DataContext="{d:DesignInstance local:DNSScanPage,
                                      IsDesignTimeCreatable=False}"
     d:DesignHeight="450"
@@ -31,18 +31,23 @@
             </Grid.ColumnDefinitions>
 
             <TextBlock Grid.Column="0" Text="Host/s" VerticalAlignment="Center" />
-            <ui:TextBox Name="HostTextBox2" Grid.Column="1" VerticalAlignment="Center" Margin="5" PlaceholderText="e.g Google.com or 192.168.1.1" />
-            <Button Grid.Column="2" Content="Lookup" Margin="10" Click="Button_Click" />
+            <ui:TextBox Name="HostTextBox1" Grid.Column="1" VerticalAlignment="Center" Margin="5" PlaceholderText="e.g Google.com or 192.168.1.1" />
+            <TextBlock Grid.Column="2" Text="DNS server" VerticalAlignment="Center" />
+            <ui:TextBox Name="HostTextBox2" Grid.Column="3" VerticalAlignment="Center" Margin="5" PlaceholderText="e.g 8.8.8.8" />
+            <Button Grid.Column="4" Content="Lookup" Margin="10" Click="Button_Click" />
         </Grid>
         <Grid Grid.Row="1" Margin="10">
-            <DataGrid x:Name="ResultsDataGrid" ItemsSource="{Binding Results}" AutoGenerateColumns="False" CanUserAddRows="False">
+            <DataGrid x:Name="ResultsDataGrid" AutoGenerateColumns="False" CanUserAddRows="False">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Host Name" Binding="{Binding Hostname}" Width="*" />
-                    <DataGridTextColumn Header="Ip Address" Binding="{Binding IpAddress}" Width="*" />
-                    <DataGridTextColumn Header="Type" Binding="{Binding Type}" Width="*" />
-                    <DataGridTextColumn Header="TTL" Binding="{Binding TTL}" Width="*" />
+                    <DataGridTextColumn Header="Domain Name" Binding="{Binding DomainName}" Width="*"/>
+                    <DataGridTextColumn Header="Record Class" Binding="{Binding RecordClass}" Width="*"/>
+                    <DataGridTextColumn Header="Record Type" Binding="{Binding RecordType}" Width="*"/>
+                    <DataGridTextColumn Header="Time To Live" Binding="{Binding TimeToLive}" Width="*"/>
+                    <DataGridTextColumn Header="Data" Binding="{Binding Data}" Width="*"/>
                 </DataGrid.Columns>
             </DataGrid>
+
+
         </Grid>
     </Grid>
 </ui:UiPage>

@@ -4,6 +4,7 @@ using Wpf.Ui.Common.Interfaces;
 
 using NetInspectLib.Scanning;
 using System.Threading.Tasks;
+using NetInspectLib.Types;
 
 namespace NetInspectApp.Views.Pages
 {
@@ -71,7 +72,7 @@ namespace NetInspectApp.Views.Pages
             }
             else
             {
-                MessageBox.Show("Error");
+                MessageBox.Show("No Results");
             }
         }
     }
