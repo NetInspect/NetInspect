@@ -43,6 +43,7 @@ namespace NetInspectApp.Views.Pages
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            ViewModel.Results.Clear();
             DnsLookup dnsLookup = new DnsLookup(HostTextBox2.Text);
 
             QueryType queryType;
@@ -88,7 +89,16 @@ namespace NetInspectApp.Views.Pages
             }
 
             List<DnsRecord> results = dnsLookup.DoDNSLookup(HostTextBox1.Text, queryType);
-            ResultsDataGrid.ItemsSource = results;
+            if (results.Count == 0)
+            {
+                ResultsDataGrid.ItemsSource = null;
+                NoResultsTextBlock.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                ResultsDataGrid.ItemsSource = results;
+                NoResultsTextBlock.Visibility = Visibility.Collapsed;
+            }
         }
 
 

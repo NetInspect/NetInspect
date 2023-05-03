@@ -18,23 +18,27 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0" Margin="10">
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="50" />
+                <ColumnDefinition Width="240" />
                 <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="280" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
             <TextBlock Grid.Column="0" Text="Host/s" VerticalAlignment="Center"/>
             <ui:TextBox Name="HostTextBox1" Grid.Column="1" VerticalAlignment="Center" Margin="5" PlaceholderText="e.g Google.com or 192.168.1.1"  Width="250" HorizontalAlignment="Left"/>
-            <TextBlock Grid.Column="2" Text="DNS server" VerticalAlignment="Center" HorizontalAlignment="Left" Width="70"/>
+            <TextBlock Grid.Column="2" Text="DNS Server" VerticalAlignment="Center" HorizontalAlignment="Left" Width="70"/>
             <ui:TextBox Name="HostTextBox2" Grid.Column="3" VerticalAlignment="Center" Margin="5" PlaceholderText="e.g 8.8.8.8" Width="100" HorizontalAlignment="Left"/>
-            <ComboBox x:Name="ComboBox" Grid.Column="3" Width="100" HorizontalAlignment="Center">
+            <TextBlock Grid.Column="3" Text="Query Type" VerticalAlignment="Center" HorizontalAlignment="Center" Width="70"/>
+            <Button Grid.Column="4" Content="Lookup" Margin="10" Click="Button_Click" Width="100" HorizontalAlignment="Left"/>
+            
+            <ComboBox x:Name="ComboBox" Grid.Column="3" Width="100" HorizontalAlignment="Left" Margin="175,0,0,0">
                 <ComboBoxItem>ANY</ComboBoxItem>
                 <ComboBoxItem>A</ComboBoxItem>
                 <ComboBoxItem>AAAA</ComboBoxItem>
@@ -45,11 +49,16 @@
                 <ComboBoxItem>SOA</ComboBoxItem>
                 <ComboBoxItem>TXT</ComboBoxItem>
             </ComboBox>
-
-
-            <Button Grid.Column="4" Content="Lookup" Margin="10" Click="Button_Click" Width="100" HorizontalAlignment="Left"/>
         </Grid>
         <Grid Grid.Row="1" Margin="10">
+            <TextBlock x:Name="NoResultsTextBlock" 
+           Text="No results found. Please note some DNS Server don't support 'ANY' queries." 
+           Visibility="Collapsed"
+           Foreground="Red"
+           FontWeight="Bold"/>
+
+        </Grid>
+        <Grid Grid.Row="2" Margin="10">
             <DataGrid x:Name="ResultsDataGrid" ItemsSource="{Binding Results}" AutoGenerateColumns="False" CanUserAddRows="False">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Domain Name" Binding="{Binding DomainName}" Width="*"/>
@@ -58,10 +67,7 @@
                     <DataGridTextColumn Header="Time To Live" Binding="{Binding TimeToLive}" Width="*"/>
                     <DataGridTextColumn Header="Data" Binding="{Binding Data}" Width="*"/>
                 </DataGrid.Columns>
-
             </DataGrid>
-
-
         </Grid>
     </Grid>
 </ui:UiPage>

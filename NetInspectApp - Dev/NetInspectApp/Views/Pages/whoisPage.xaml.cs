@@ -1,27 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Wpf.Ui.Common.Interfaces;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+
+using NetInspectLib.Discovery;
+using System.Threading.Tasks;
+using static NetInspectApp.Views.Pages.whoisPage;
+using System.Net;
 
 namespace NetInspectApp.Views.Pages
 {
     /// <summary>
     /// Interaction logic for arpPage.xaml
     /// </summary>
-    public partial class whoisPage : Page
+    public partial class whoisPage : INavigableView<ViewModels.whoisViewModel>
     {
-        public whoisPage()
+        public ViewModels.whoisViewModel ViewModel
         {
+            get;
+        }
+
+        public whoisPage(ViewModels.whoisViewModel viewModel)
+        {
+            ViewModel = viewModel;
+
             InitializeComponent();
         }
     }

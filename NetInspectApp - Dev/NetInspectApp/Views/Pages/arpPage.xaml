@@ -7,7 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="clr-namespace:NetInspectApp.Models"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-    Title="PortScanPage"
+    Title="ArpScanPage"
     d:DataContext="{d:DesignInstance local:arpPage,
                                      IsDesignTimeCreatable=False}"
     d:DesignHeight="450"
