@@ -43,37 +43,14 @@ namespace NetInspectApp.Views.Pages
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            ViewModel.Results.Clear();
-
-            string domain = HostTextBox1.Text;
-            string dnsServer = HostTextBox2.Text;
-            DnsLookup lookup = new DnsLookup(dnsServer);
-            List<string> lookupResults = lookup.DoDNSLookup(domain);
-            foreach (string result in lookupResults)
-            {
-                if (result.StartsWith("Query type: "))
-                {
-                    // Ignore the query type message
-                    continue;
-                }
-                string[] parts = result.Split(' ');
-                foreach (string part in parts)
-                {
-                    DnsResult dnsResult = new DnsResult
-                    {
-                        DomainName = parts[0],
-                        RecordClass = parts[1],
-                        RecordType = parts[2],
-                        TimeToLive = parts[3],
-                        Data = parts[4]
-                    };
-                    ViewModel.Results.Add(dnsResult);
-                }
-            }
+            DnsLookup dnsLookup = new DnsLookup(HostTextBox2.Text);
+            List<DnsRecord> results = dnsLookup.DoDNSLookup(HostTextBox1.Text);
+            ResultsDataGrid.ItemsSource = results;
         }
 
     }
 
+    // No longer needed
     public class DnsResult
     {
         public string DomainName { get; set; }
