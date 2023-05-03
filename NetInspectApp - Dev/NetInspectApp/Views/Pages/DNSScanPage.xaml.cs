@@ -57,7 +57,7 @@ namespace NetInspectApp.Views.Pages
                     continue;
                 }
                 string[] parts = result.Split(' ');
-                if (parts.Length > 4)
+                foreach (string part in parts)
                 {
                     DnsResult dnsResult = new DnsResult
                     {

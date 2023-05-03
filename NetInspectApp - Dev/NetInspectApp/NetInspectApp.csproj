@@ -29,7 +29,7 @@
 
   <ItemGroup>
     <Reference Include="NetInspectLib">
-      <HintPath>..\..\..\NetInspect\NetInspectLib\bin\Debug\net7.0\NetInspectLib.dll</HintPath>
+      <HintPath>..\..\..\NetInspectLib\bin\Debug\net7.0\NetInspectLib.dll</HintPath>
     </Reference>
   </ItemGroup>
 
