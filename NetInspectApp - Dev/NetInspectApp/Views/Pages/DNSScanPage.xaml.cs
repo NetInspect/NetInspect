@@ -1,30 +1,30 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using Wpf.Ui.Common.Interfaces;
-using Wpf.Ui.Mvvm.Interfaces;
+using System.Collections.Generic;
+using DnsClient;
+using DnsClient.Protocol;
+using NetInspectLib.Types;
+using static NetInspectApp.Views.Pages.DNSScanPage;
+
 
 namespace NetInspectApp.Views.Pages
 {
     /// <summary>
     /// Interaction logic for DataView.xaml
     /// </summary>
-    public partial class DNSScanPage : INavigableView<ViewModels.PortScanViewModel>
+    public partial class DNSScanPage : INavigableView<ViewModels.DNSScanViewModel>
     {
-        public ViewModels.PortScanViewModel ViewModel
+        public ViewModels.DNSScanViewModel ViewModel
         {
             get;
         }
 
-        public DNSScanPage(ViewModels.PortScanViewModel viewModel)
+        public DNSScanPage(ViewModels.DNSScanViewModel viewModel)
         {
             ViewModel = viewModel;
-
+            DataContext = ViewModel;
             InitializeComponent();
         }
 
@@ -40,32 +40,69 @@ namespace NetInspectApp.Views.Pages
             }
         }
 
-        public class DnsResult
-        {
-            public string? HostName { get; set; }
-            public string? IpAddress { get; set; }
-            public string? Type { get; set; }
-            public int TTL { get; set; }
-        }
 
-        private async void Button_Click(object sender, RoutedEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
-            DnsLookup lookup = new DnsLookup(HostTextBox2.Text);
-            Task<bool> task = lookup.DoLookup();
-            bool success = await task;
-            if (success)
+            DnsLookup dnsLookup = new DnsLookup(HostTextBox2.Text);
+
+            QueryType queryType;
+            if (ComboBox.SelectedItem == null)
             {
-                foreach (var record in lookup.records)
+                queryType = QueryType.ANY;
+            }
+            else
+            {
+                switch (((ComboBoxItem)ComboBox.SelectedItem).Content.ToString())
                 {
-                    var row = new DnsResult
-                    {
-                        HostName = record.Host.GetHostname(),
-                        IpAddress = record.Host.GetIPAddress().ToString(),
-                        Type = record.RecordType,
-                        TTL = record.TTL,
-                    };
+                    case "A":
+                        queryType = QueryType.A;
+                        break;
+                    case "AAAA":
+                        queryType = QueryType.AAAA;
+                        break;
+                    case "CNAME":
+                        queryType = QueryType.CNAME;
+                        break;
+                    case "MX":
+                        queryType = QueryType.MX;
+                        break;
+                    case "NS":
+                        queryType = QueryType.NS;
+                        break;
+                    case "PTR":
+                        queryType = QueryType.PTR;
+                        break;
+                    case "SOA":
+                        queryType = QueryType.SOA;
+                        break;
+                    case "TXT":
+                        queryType = QueryType.TXT;
+                        break;
+                    case "ANY":
+                        queryType = QueryType.ANY;
+                        break;
+                    default:
+                        queryType = QueryType.ANY;
+                        break;
                 }
             }
+
+            List<DnsRecord> results = dnsLookup.DoDNSLookup(HostTextBox1.Text, queryType);
+            ResultsDataGrid.ItemsSource = results;
         }
+
+
+
+
+    }
+
+    // No longer needed
+    public class DnsResult
+    {
+        public string DomainName { get; set; }
+        public string RecordClass { get; set; }
+        public string RecordType { get; set; }
+        public string TimeToLive { get; set; }
+        public string Data { get; set; }
     }
 }

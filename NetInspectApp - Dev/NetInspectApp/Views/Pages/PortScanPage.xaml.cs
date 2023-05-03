@@ -4,6 +4,7 @@ using Wpf.Ui.Common.Interfaces;
 
 using NetInspectLib.Scanning;
 using System.Threading.Tasks;
+using NetInspectLib.Types;
 
 namespace NetInspectApp.Views.Pages
 {
@@ -38,17 +39,9 @@ namespace NetInspectApp.Views.Pages
 
         /////
 
-        public class PortScanResult
-        {
-            public string? IpAddress { get; set; }
-            public int PortNumber { get; set; }
-            public string? Status { get; set; }
-            public string? Other { get; set; }
-        }
-
         private async void ScanButton_Click(object sender, RoutedEventArgs e)
         {
-            ResultsDataGrid.Items.Clear();
+            ViewModel.Results.Clear();
             PortScan scaner = new PortScan();
             Task<bool> scan = scaner.DoPortScan(HostTextBox.Text, PortsTextBox.Text);
             bool success = await scan;
@@ -65,14 +58,22 @@ namespace NetInspectApp.Views.Pages
                             Status = "Open",
                             Other = port.Name
                         };
-                        ResultsDataGrid.Items.Add(row);
+                        ViewModel.Results.Add(row);
                     }
                 }
             }
             else
             {
-                MessageBox.Show("Error");
+                MessageBox.Show("No Results");
             }
         }
+    }
+
+    public class PortScanResult
+    {
+        public string? IpAddress { get; set; }
+        public int PortNumber { get; set; }
+        public string? Status { get; set; }
+        public string? Other { get; set; }
     }
 }

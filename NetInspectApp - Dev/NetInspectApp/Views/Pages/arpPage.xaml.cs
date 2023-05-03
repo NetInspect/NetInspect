@@ -31,7 +31,7 @@ namespace NetInspectApp.Views.Pages
             public string IpAddress { get; set; }
         }
 
-        private async void Button_Click(object sender, RoutedEventArgs e)
+        /*private async void Button_Click(object sender, RoutedEventArgs e)
         {
             ARPScan scaner = new ARPScan(HostTextBox2.Text);
             Task<bool> scan = scaner.DoScan();
@@ -47,6 +47,6 @@ namespace NetInspectApp.Views.Pages
                     ResultsDataGrid.Items.Add(row);
                 }
             }
-        }
+        }*/
     }
 }
