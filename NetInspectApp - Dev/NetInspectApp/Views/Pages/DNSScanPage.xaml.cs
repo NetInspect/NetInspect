@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using DnsClient;
 using DnsClient.Protocol;
 using NetInspectLib.Types;
+using static NetInspectApp.Views.Pages.DNSScanPage;
 
 
 namespace NetInspectApp.Views.Pages
@@ -23,7 +24,7 @@ namespace NetInspectApp.Views.Pages
         public DNSScanPage(ViewModels.DNSScanViewModel viewModel)
         {
             ViewModel = viewModel;
-
+            DataContext = ViewModel;
             InitializeComponent();
         }
 
@@ -39,22 +40,14 @@ namespace NetInspectApp.Views.Pages
             }
         }
 
-        public class DnsResult
-        {
-            public string DomainName { get; set; }
-            public string RecordClass { get; set; }
-            public string RecordType { get; set; }
-            public string TimeToLive { get; set; }
-            public string Data { get; set; }
-        }
-
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            ViewModel.Results.Clear();
+
             string domain = HostTextBox1.Text;
             string dnsServer = HostTextBox2.Text;
             DnsLookup lookup = new DnsLookup(dnsServer);
-            List<DnsResult> results = new List<DnsResult>();
             List<string> lookupResults = lookup.DoDNSLookup(domain);
             foreach (string result in lookupResults)
             {
@@ -74,11 +67,19 @@ namespace NetInspectApp.Views.Pages
                         TimeToLive = parts[3],
                         Data = parts[4]
                     };
-                    results.Add(dnsResult);
+                    ViewModel.Results.Add(dnsResult);
                 }
             }
-            //ViewModel.Results = results;
         }
 
+    }
+
+    public class DnsResult
+    {
+        public string DomainName { get; set; }
+        public string RecordClass { get; set; }
+        public string RecordType { get; set; }
+        public string TimeToLive { get; set; }
+        public string Data { get; set; }
     }
 }

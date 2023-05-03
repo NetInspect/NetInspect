@@ -37,7 +37,7 @@
             <Button Grid.Column="4" Content="Lookup" Margin="10" Click="Button_Click" />
         </Grid>
         <Grid Grid.Row="1" Margin="10">
-            <DataGrid x:Name="ResultsDataGrid" AutoGenerateColumns="False" CanUserAddRows="False">
+            <DataGrid x:Name="ResultsDataGrid" ItemsSource="{Binding Results}" AutoGenerateColumns="False" CanUserAddRows="False">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Domain Name" Binding="{Binding DomainName}" Width="*"/>
                     <DataGridTextColumn Header="Record Class" Binding="{Binding RecordClass}" Width="*"/>

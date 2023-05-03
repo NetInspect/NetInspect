@@ -39,17 +39,9 @@ namespace NetInspectApp.Views.Pages
 
         /////
 
-        public class PortScanResult
-        {
-            public string? IpAddress { get; set; }
-            public int PortNumber { get; set; }
-            public string? Status { get; set; }
-            public string? Other { get; set; }
-        }
-
         private async void ScanButton_Click(object sender, RoutedEventArgs e)
         {
-            ResultsDataGrid.Items.Clear();
+            ViewModel.Results.Clear();
             PortScan scaner = new PortScan();
             Task<bool> scan = scaner.DoPortScan(HostTextBox.Text, PortsTextBox.Text);
             bool success = await scan;
@@ -66,7 +58,7 @@ namespace NetInspectApp.Views.Pages
                             Status = "Open",
                             Other = port.Name
                         };
-                        ResultsDataGrid.Items.Add(row);
+                        ViewModel.Results.Add(row);
                     }
                 }
             }
@@ -75,5 +67,13 @@ namespace NetInspectApp.Views.Pages
                 MessageBox.Show("No Results");
             }
         }
+    }
+
+    public class PortScanResult
+    {
+        public string? IpAddress { get; set; }
+        public int PortNumber { get; set; }
+        public string? Status { get; set; }
+        public string? Other { get; set; }
     }
 }
