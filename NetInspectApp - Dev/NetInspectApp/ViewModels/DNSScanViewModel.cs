@@ -9,6 +9,7 @@ namespace NetInspectApp.ViewModels
 {
     public partial class DNSScanViewModel : ObservableObject, INavigationAware
     {
+
         private List<DnsResult> _results;
 
         public List<DnsResult> Results

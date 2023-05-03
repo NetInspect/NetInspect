@@ -30,11 +30,24 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <TextBlock Grid.Column="0" Text="Host/s" VerticalAlignment="Center" />
-            <ui:TextBox Name="HostTextBox1" Grid.Column="1" VerticalAlignment="Center" Margin="5" PlaceholderText="e.g Google.com or 192.168.1.1" />
-            <TextBlock Grid.Column="2" Text="DNS server" VerticalAlignment="Center" />
-            <ui:TextBox Name="HostTextBox2" Grid.Column="3" VerticalAlignment="Center" Margin="5" PlaceholderText="e.g 8.8.8.8" />
-            <Button Grid.Column="4" Content="Lookup" Margin="10" Click="Button_Click" />
+            <TextBlock Grid.Column="0" Text="Host/s" VerticalAlignment="Center"/>
+            <ui:TextBox Name="HostTextBox1" Grid.Column="1" VerticalAlignment="Center" Margin="5" PlaceholderText="e.g Google.com or 192.168.1.1"  Width="250" HorizontalAlignment="Left"/>
+            <TextBlock Grid.Column="2" Text="DNS server" VerticalAlignment="Center" HorizontalAlignment="Left" Width="70"/>
+            <ui:TextBox Name="HostTextBox2" Grid.Column="3" VerticalAlignment="Center" Margin="5" PlaceholderText="e.g 8.8.8.8" Width="100" HorizontalAlignment="Left"/>
+            <ComboBox x:Name="ComboBox" Grid.Column="3" Width="100" HorizontalAlignment="Center">
+                <ComboBoxItem>ANY</ComboBoxItem>
+                <ComboBoxItem>A</ComboBoxItem>
+                <ComboBoxItem>AAAA</ComboBoxItem>
+                <ComboBoxItem>CNAME</ComboBoxItem>
+                <ComboBoxItem>MX</ComboBoxItem>
+                <ComboBoxItem>NS</ComboBoxItem>
+                <ComboBoxItem>PTR</ComboBoxItem>
+                <ComboBoxItem>SOA</ComboBoxItem>
+                <ComboBoxItem>TXT</ComboBoxItem>
+            </ComboBox>
+
+
+            <Button Grid.Column="4" Content="Lookup" Margin="10" Click="Button_Click" Width="100" HorizontalAlignment="Left"/>
         </Grid>
         <Grid Grid.Row="1" Margin="10">
             <DataGrid x:Name="ResultsDataGrid" ItemsSource="{Binding Results}" AutoGenerateColumns="False" CanUserAddRows="False">
@@ -45,6 +58,7 @@
                     <DataGridTextColumn Header="Time To Live" Binding="{Binding TimeToLive}" Width="*"/>
                     <DataGridTextColumn Header="Data" Binding="{Binding Data}" Width="*"/>
                 </DataGrid.Columns>
+
             </DataGrid>
 
 

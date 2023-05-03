@@ -44,9 +44,55 @@ namespace NetInspectApp.Views.Pages
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             DnsLookup dnsLookup = new DnsLookup(HostTextBox2.Text);
-            List<DnsRecord> results = dnsLookup.DoDNSLookup(HostTextBox1.Text);
+
+            QueryType queryType;
+            if (ComboBox.SelectedItem == null)
+            {
+                queryType = QueryType.ANY;
+            }
+            else
+            {
+                switch (((ComboBoxItem)ComboBox.SelectedItem).Content.ToString())
+                {
+                    case "A":
+                        queryType = QueryType.A;
+                        break;
+                    case "AAAA":
+                        queryType = QueryType.AAAA;
+                        break;
+                    case "CNAME":
+                        queryType = QueryType.CNAME;
+                        break;
+                    case "MX":
+                        queryType = QueryType.MX;
+                        break;
+                    case "NS":
+                        queryType = QueryType.NS;
+                        break;
+                    case "PTR":
+                        queryType = QueryType.PTR;
+                        break;
+                    case "SOA":
+                        queryType = QueryType.SOA;
+                        break;
+                    case "TXT":
+                        queryType = QueryType.TXT;
+                        break;
+                    case "ANY":
+                        queryType = QueryType.ANY;
+                        break;
+                    default:
+                        queryType = QueryType.ANY;
+                        break;
+                }
+            }
+
+            List<DnsRecord> results = dnsLookup.DoDNSLookup(HostTextBox1.Text, queryType);
             ResultsDataGrid.ItemsSource = results;
         }
+
+
+
 
     }
 
