@@ -31,8 +31,8 @@
             </Grid.ColumnDefinitions>
 
             <TextBlock Grid.Column="0" Text="Domain" VerticalAlignment="Center" />
-            <ui:TextBox Name="HostWHOISTextBox" Grid.Column="1" VerticalAlignment="Center" Margin="5" PlaceholderText="e.g Google.com" />
-            <Button Grid.Column="2" Content="Search" Margin="10"  />
+            <ui:TextBox Name="queryTextBox" Grid.Column="1" VerticalAlignment="Center" Margin="5" PlaceholderText="e.g Google.com" />
+            <Button Grid.Column="2" Content="Search" Margin="10" Click="Button_Click"  />
         </Grid>
         <Grid Grid.Row="1" Margin="10,10,10,10">
             <DataGrid x:Name="ResultsDataGrid" ItemsSource="{Binding Results}" AutoGenerateColumns="False" CanUserAddRows="False">

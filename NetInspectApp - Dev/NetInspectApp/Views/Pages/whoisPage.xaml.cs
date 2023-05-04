@@ -25,5 +25,13 @@ namespace NetInspectApp.Views.Pages
 
             InitializeComponent();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            string query = queryTextBox.Text;
+           // Whois whois = new Whois();
+           // string result = whois.Lookup(query);
+           // ResultsDataGrid.Items.Add(result);
+        }
     }
 }
