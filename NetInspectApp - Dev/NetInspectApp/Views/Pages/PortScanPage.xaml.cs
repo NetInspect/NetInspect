@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using Wpf.Ui.Common.Interfaces;
-
+using System.Windows.Shell;
 using NetInspectLib.Scanning;
 using System.Threading.Tasks;
 using NetInspectLib.Types;
@@ -13,6 +13,7 @@ namespace NetInspectApp.Views.Pages
     /// </summary>
     public partial class PortScanPage : INavigableView<ViewModels.PortScanViewModel>
     {
+
         public ViewModels.PortScanViewModel ViewModel
         {
             get;
@@ -21,8 +22,10 @@ namespace NetInspectApp.Views.Pages
         public PortScanPage(ViewModels.PortScanViewModel viewModel)
         {
             ViewModel = viewModel;
-
             InitializeComponent();
+            DataContext = ViewModel;
+
+
         }
 
         public class PlaceholderTextBox : TextBox

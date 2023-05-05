@@ -37,6 +37,7 @@
             <Button Grid.Column="4" Content="Scan" Margin="10" Click="ScanButton_Click" />
         </Grid>
         <Grid Grid.Row="1" Margin="10">
+            <ProgressBar Height="5" Value="{Binding Progress}" Margin="0,-21,0,374" Minimum="1" Maximum="100"/>
             <DataGrid x:Name="ResultsDataGrid" ItemsSource="{Binding Results}" AutoGenerateColumns="False" CanUserAddRows="False">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="IP Address" Binding="{Binding IpAddress}" Width="*"/>
