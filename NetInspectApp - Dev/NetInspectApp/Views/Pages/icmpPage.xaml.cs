@@ -11,18 +11,18 @@ namespace NetInspectApp.Views.Pages
     /// <summary>
     /// Interaction logic for icmpPage.xaml
     /// </summary>
-    public partial class icmpPage : INavigableView<ViewModels.PortScanViewModel>
+    public partial class icmpPage : INavigableView<ViewModels.icmpViewModel>
     {
-        public ViewModels.PortScanViewModel ViewModel
+        public ViewModels.icmpViewModel ViewModel
         {
             get;
         }
 
-        public icmpPage(ViewModels.PortScanViewModel viewModel)
+        public icmpPage(ViewModels.icmpViewModel viewModel)
         {
             ViewModel = viewModel;
-
             InitializeComponent();
+            DataContext = ViewModel;
         }
 
         public class PlaceholderTextBox : TextBox
@@ -40,24 +40,36 @@ namespace NetInspectApp.Views.Pages
         public class IcmpScanResult
         {
             public string IpAddress { get; set; }
+            public string Status { get; set; }
         }
 
-        /*private async void Button_Click(object sender, RoutedEventArgs e)
+        private async void Button_Click(object sender, RoutedEventArgs e)
         {
-            ICMPScan scaner = new ICMPScan(HostTextBox2.Text);
+            ViewModel.Results.Clear();
+            ICMPScan scaner = new ICMPScan(icmpTextBox2.Text);
             Task<bool> scan = scaner.DoScan();
             bool success = await scan;
             if (success)
             {
                 foreach (var host in scaner.results)
                 {
-                    var row = new IcmpScanResult
+                    var icmp = new IcmpScanResult
                     {
                         IpAddress = host.GetIPAddress().ToString(),
+                        Status = "Success"
                     };
-                    ResultsDataGrid.Items.Add(row);
+                    ViewModel.Results.Add(icmp);
                 }
             }
-        }*/
+            else
+            {
+                var icmp = new IcmpScanResult
+                {
+                    IpAddress = icmpTextBox2.Text,
+                    Status = "Fail"
+                };
+                ViewModel.Results.Add(icmp);
+            }
+        }
     }
 }

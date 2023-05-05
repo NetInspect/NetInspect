@@ -1,7 +1,6 @@
 ﻿using Wpf.Ui.Common.Interfaces;
 using System.Windows;
 using System.Windows.Controls;
-
 using NetInspectLib.Discovery;
 using System.Threading.Tasks;
 using static NetInspectApp.Views.Pages.icmpPage;
@@ -12,41 +11,43 @@ namespace NetInspectApp.Views.Pages
     /// <summary>
     /// Interaction logic for arpPage.xaml
     /// </summary>
-    public partial class arpPage : INavigableView<ViewModels.PortScanViewModel>
+    public partial class arpPage : INavigableView<ViewModels.arpViewModel>
     {
-        public ViewModels.PortScanViewModel ViewModel
+        public ViewModels.arpViewModel ViewModel
         {
             get;
         }
 
-        public arpPage(ViewModels.PortScanViewModel viewModel)
+        public arpPage(ViewModels.arpViewModel viewModel)
         {
             ViewModel = viewModel;
 
             InitializeComponent();
+            DataContext = ViewModel;
         }
 
         public class ArpScanResult
         {
-            public string IpAddress { get; set; }
+            public string? IpAddress { get; set; }
         }
 
-        /*private async void Button_Click(object sender, RoutedEventArgs e)
+        private async void Button_Click(object sender, RoutedEventArgs e)
         {
-            ARPScan scaner = new ARPScan(HostTextBox2.Text);
-            Task<bool> scan = scaner.DoScan();
+            ViewModel.Results.Clear();
+            ARPScan scaner = new ARPScan();
+            Task<bool> scan = scaner.DoARPScan(arpScanTexbox.Text);
             bool success = await scan;
             if (success)
             {
                 foreach (var host in scaner.results)
                 {
-                    var row = new ArpScanResult
+                    var arp = new ArpScanResult
                     {
                         IpAddress = host.GetIPAddress().ToString(),
                     };
-                    ResultsDataGrid.Items.Add(row);
+                    ViewModel.Results.Add(arp);
                 }
             }
-        }*/
+        }
     }
 }

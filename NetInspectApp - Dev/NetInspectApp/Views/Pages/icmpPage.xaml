@@ -31,13 +31,14 @@
             </Grid.ColumnDefinitions>
 
             <TextBlock Grid.Column="0" Text="Host" VerticalAlignment="Center" />
-            <ui:TextBox Name="HostTextBox2" Grid.Column="1" VerticalAlignment="Center" Margin="5" PlaceholderText="e.g 192.168.1.0/24" />
-            <Button Grid.Column="2" Content="Ping" Margin="10" />
+            <ui:TextBox Name="icmpTextBox2" Grid.Column="1" VerticalAlignment="Center" Margin="5" PlaceholderText="e.g 192.168.1.1" />
+            <Button Grid.Column="2" Content="Ping" Margin="10" Click="Button_Click" />
         </Grid>
         <Grid Grid.Row="1" Margin="10,10,10,10">
             <DataGrid x:Name="ResultsDataGrid" ItemsSource="{Binding Results}" AutoGenerateColumns="False" CanUserAddRows="False">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="IP Address" Binding="{Binding IpAddress}" Width="*" />
+                    <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="*" />
+                    <DataGridTextColumn Header="Results" Binding="{Binding IpAddress}" Width="*" />
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>
