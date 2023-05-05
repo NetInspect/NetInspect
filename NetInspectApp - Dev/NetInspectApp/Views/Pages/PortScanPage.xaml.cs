@@ -5,6 +5,8 @@ using System.Windows.Shell;
 using NetInspectLib.Scanning;
 using System.Threading.Tasks;
 using NetInspectLib.Types;
+using System.Linq;
+using System.Drawing;
 
 namespace NetInspectApp.Views.Pages
 {
@@ -44,12 +46,26 @@ namespace NetInspectApp.Views.Pages
 
         private async void ScanButton_Click(object sender, RoutedEventArgs e)
         {
+            ScanProgressBar.Value = 0;
+            
+
+
             ViewModel.Results.Clear();
             PortScan scaner = new PortScan();
+
+            for (int i = 0; i < 100; i++)
+            {
+                ViewModel.Progress = i;
+                await Task.Delay(10);
+            }
+
             Task<bool> scan = scaner.DoScan(HostTextBox.Text, PortsTextBox.Text);
             bool success = await scan;
             if (success)
             {
+                ScanProgressBar.Visibility = Visibility.Visible;
+                int totalPorts = scaner.results.Sum(host => host.GetPorts().Count());
+                int scannedPorts = 0;
                 foreach (var host in scaner.results)
                 {
                     foreach (var port in host.GetPorts())
@@ -62,6 +78,9 @@ namespace NetInspectApp.Views.Pages
                             Other = port.Name
                         };
                         ViewModel.Results.Add(row);
+
+                        scannedPorts++;
+                        ScanProgressBar.Value = scannedPorts * 100 / totalPorts;
                     }
                 }
             }
@@ -69,8 +88,10 @@ namespace NetInspectApp.Views.Pages
             {
                 MessageBox.Show("No Results");
             }
+            ScanProgressBar.Visibility = Visibility.Hidden;
         }
     }
+
 
     public class PortScanResult
     {

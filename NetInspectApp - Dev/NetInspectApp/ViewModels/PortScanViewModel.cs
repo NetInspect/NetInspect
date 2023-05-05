@@ -20,6 +20,13 @@ namespace NetInspectApp.ViewModels
             set => SetProperty(ref _results, value);
         }
 
+        private double _progress;
+        public double Progress
+        {
+            get => _progress;
+            set => SetProperty(ref _progress, value);
+        }
+
         public void OnNavigatedTo()
         {
             Results = new ObservableCollection<PortScanResult>();
