@@ -43,7 +43,7 @@ namespace NetInspectApp.Views.Pages
         {
             ViewModel.Results.Clear();
             PortScan scaner = new PortScan();
-            Task<bool> scan = scaner.DoPortScan(HostTextBox.Text, PortsTextBox.Text);
+            Task<bool> scan = scaner.DoScan(HostTextBox.Text, PortsTextBox.Text);
             bool success = await scan;
             if (success)
             {

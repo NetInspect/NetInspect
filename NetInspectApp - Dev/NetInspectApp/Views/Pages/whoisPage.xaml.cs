@@ -6,6 +6,7 @@ using NetInspectLib.Discovery;
 using System.Threading.Tasks;
 using static NetInspectApp.Views.Pages.whoisPage;
 using System.Net;
+using System.Linq;
 
 namespace NetInspectApp.Views.Pages
 {
@@ -22,16 +23,20 @@ namespace NetInspectApp.Views.Pages
         public whoisPage(ViewModels.whoisViewModel viewModel)
         {
             ViewModel = viewModel;
-
+            DataContext = ViewModel;
             InitializeComponent();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             string query = queryTextBox.Text;
-           // Whois whois = new Whois();
-           // string result = whois.Lookup(query);
-           // ResultsDataGrid.Items.Add(result);
+            Whois whois = new Whois();
+            string resultsquery = whois.Lookup(query);
+            var lines = resultsquery.Split('\n');
+            resultsquery = string.Join("\n", lines.Skip(4)); // Skip the first 4 lines
+            ViewModel.Results.Add(resultsquery);
         }
+
+
     }
 }

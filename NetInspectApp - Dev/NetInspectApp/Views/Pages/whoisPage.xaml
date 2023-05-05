@@ -35,11 +35,13 @@
             <Button Grid.Column="2" Content="Search" Margin="10" Click="Button_Click"  />
         </Grid>
         <Grid Grid.Row="1" Margin="10,10,10,10">
-            <DataGrid x:Name="ResultsDataGrid" ItemsSource="{Binding Results}" AutoGenerateColumns="False" CanUserAddRows="False">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Results" Binding="{Binding IpAddress}" Width="*" />
-                </DataGrid.Columns>
-            </DataGrid>
+            <ScrollViewer>
+                <DataGrid x:Name="QueryResultsDataGrid" ItemsSource="{Binding Results}" AutoGenerateColumns="False" CanUserAddRows="False">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Results" Width="*" Binding="{Binding .}" />
+                    </DataGrid.Columns>
+                </DataGrid>
+            </ScrollViewer>
         </Grid>
     </Grid>
 </ui:UiPage>
