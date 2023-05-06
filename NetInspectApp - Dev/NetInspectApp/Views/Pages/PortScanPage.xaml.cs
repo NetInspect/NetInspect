@@ -56,31 +56,31 @@ namespace NetInspectApp.Views.Pages
             for (int i = 0; i < 100; i++)
             {
                 ViewModel.Progress = i;
-                await Task.Delay(10);
+               await Task.Delay(10);
             }
 
-            Task<bool> scan = scaner.DoScan(HostTextBox.Text, PortsTextBox.Text);
+            Task<bool> scan = scaner.DoPortScan(HostTextBox.Text, PortsTextBox.Text);
             bool success = await scan;
             if (success)
             {
-                ScanProgressBar.Visibility = Visibility.Visible;
-                int totalPorts = scaner.results.Sum(host => host.GetPorts().Count());
-                int scannedPorts = 0;
+               ScanProgressBar.Visibility = Visibility.Visible;
+               int totalPorts = scaner.results.Sum(host => host.Ports.Count());
+               int scannedPorts = 0;
                 foreach (var host in scaner.results)
                 {
-                    foreach (var port in host.GetPorts())
+                    foreach (var port in host.Ports)
                     {
                         var row = new PortScanResult
                         {
-                            IpAddress = host.GetIPAddress().ToString(),
+                            IpAddress = host.IPAdress.ToString(),
                             PortNumber = port.Number,
                             Status = "Open",
                             Other = port.Name
                         };
                         ViewModel.Results.Add(row);
 
-                        scannedPorts++;
-                        ScanProgressBar.Value = scannedPorts * 100 / totalPorts;
+                       scannedPorts++;
+                       ScanProgressBar.Value = scannedPorts * 100 / totalPorts;
                     }
                 }
             }
@@ -88,7 +88,7 @@ namespace NetInspectApp.Views.Pages
             {
                 MessageBox.Show("No Results");
             }
-            ScanProgressBar.Visibility = Visibility.Hidden;
+           ScanProgressBar.Visibility = Visibility.Hidden;
         }
     }
 
