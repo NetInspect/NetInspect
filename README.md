@@ -14,3 +14,4 @@
 * Visual Studio 2022
 * <a href="https://wpfui.lepo.co/">WPF-UI Framework</a>
 * .NET 7
+ <a href="https://github.com/NetInspect/NetInspectLib/">NetInspectLib</a>
