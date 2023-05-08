@@ -83,7 +83,7 @@ namespace NetInspectApp.ViewModels
                     Content = "UDP Scan",
                     PageTag = "udpscan",
                     Icon = SymbolRegular.SoundWaveCircle24,
-                    PageType = typeof(Views.Pages.udpPage)
+                    PageType = typeof(Views.Pages.UdpPage)
                 }
             };
 
