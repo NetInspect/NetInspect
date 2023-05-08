@@ -5,9 +5,9 @@ using Wpf.Ui.Common.Interfaces;
 using System.Collections.Generic;
 using DnsClient;
 using DnsClient.Protocol;
-using NetInspectLib.Types;
+using NetInspectLib.Networking;
 using static NetInspectApp.Views.Pages.DNSScanPage;
-
+using static NetInspectLib.Networking.DnsLookup;
 
 namespace NetInspectApp.Views.Pages
 {

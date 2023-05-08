@@ -1,8 +1,7 @@
 ﻿using Wpf.Ui.Common.Interfaces;
 using System.Windows;
 using System.Windows.Controls;
-
-using NetInspectLib.Discovery;
+using NetInspectLib.Networking;
 using System.Threading.Tasks;
 using static NetInspectApp.Views.Pages.whoisPage;
 using System.Net;
@@ -29,6 +28,7 @@ namespace NetInspectApp.Views.Pages
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            ViewModel.Results.Clear();
             string query = queryTextBox.Text;
             Whois whois = new Whois();
             string resultsquery = whois.Lookup(query);

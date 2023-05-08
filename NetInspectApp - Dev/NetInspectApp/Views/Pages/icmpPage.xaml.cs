@@ -2,7 +2,6 @@
 using System.Windows;
 using System.Windows.Controls;
 using Wpf.Ui.Common.Interfaces;
-
 using NetInspectLib.Discovery;
 using System.Threading.Tasks;
 
