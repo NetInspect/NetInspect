@@ -74,7 +74,7 @@ namespace NetInspectApp.Views.Pages
                         {
                             IpAddress = host.IPAddress.ToString(),
                             PortNumber = port.Number,
-                            Status = "Open",
+                            Status = port.Status.ToString(),
                             Other = port.Name
                         };
                         ViewModel.Results.Add(row);
