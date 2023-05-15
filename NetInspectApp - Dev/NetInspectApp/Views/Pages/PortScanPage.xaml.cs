@@ -72,7 +72,7 @@ namespace NetInspectApp.Views.Pages
                     {
                         var row = new PortScanResult
                         {
-                            IpAddress = host.IPAdress.ToString(),
+                            IpAddress = host.IPAddress.ToString(),
                             PortNumber = port.Number,
                             Status = "Open",
                             Other = port.Name

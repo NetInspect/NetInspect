@@ -43,7 +43,7 @@ namespace NetInspectApp.Views.Pages
                 {
                     var arp = new ArpScanResult
                     {
-                        IpAddress = host.IPAdress.ToString(),
+                        IpAddress = host.IPAddress.ToString(),
                     };
                     ViewModel.Results.Add(arp);
                 }

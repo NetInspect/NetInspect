@@ -54,7 +54,7 @@ namespace NetInspectApp.Views.Pages
                 {
                     var icmp = new IcmpScanResult
                     {
-                        IpAddress = host.IPAdress.ToString(),
+                        IpAddress = host.IPAddress.ToString(),
                         Status = "Success"
                     };
                     ViewModel.Results.Add(icmp);
