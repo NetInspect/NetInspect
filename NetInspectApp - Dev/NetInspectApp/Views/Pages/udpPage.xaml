@@ -31,7 +31,7 @@
             </Grid.ColumnDefinitions>
 
             <TextBlock Grid.Column="0" Text="Host/s" VerticalAlignment="Center"/>
-            <ui:TextBox Name="udpTextBox" Grid.Column="1" VerticalAlignment="Center" Margin="5" PlaceholderText="e.g Method"/>
+            <ui:TextBox Name="udpTextBox" Grid.Column="1" VerticalAlignment="Center" Margin="5" PlaceholderText="e.g range"/>
             <Button Grid.Column="2" Content="Scan" Margin="10"  />
         </Grid>
         <Grid Grid.Row="1" Margin="10">
