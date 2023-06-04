@@ -64,9 +64,9 @@ namespace NetInspectApp.Views.Pages
             if (success)
             {
                ScanProgressBar.Visibility = Visibility.Visible;
-               int totalPorts = scaner.results.Sum(host => host.Ports.Count());
+               int totalPorts = scaner.Results.Sum(host => host.Ports.Count());
                int scannedPorts = 0;
-                foreach (var host in scaner.results)
+                foreach (var host in scaner.Results)
                 {
                     foreach (var port in host.Ports)
                     {
