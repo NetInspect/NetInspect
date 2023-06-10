@@ -33,12 +33,11 @@
 
             <TextBlock Grid.Column="0" Text="Host/s" VerticalAlignment="Center"/>
             <ui:TextBox Name="HostTextBox1" Grid.Column="1" VerticalAlignment="Center" Margin="5" PlaceholderText="e.g Google.com or 192.168.1.1"  Width="250" HorizontalAlignment="Left"/>
-            <TextBlock Grid.Column="2" Text="DNS Server" VerticalAlignment="Center" HorizontalAlignment="Left" Width="70"/>
-            <ui:TextBox Name="HostTextBox2" Grid.Column="3" VerticalAlignment="Center" Margin="5" PlaceholderText="e.g 8.8.8.8" Width="100" HorizontalAlignment="Left"/>
-            <TextBlock Grid.Column="3" Text="Query Type" VerticalAlignment="Center" HorizontalAlignment="Center" Width="70"/>
+
+            <TextBlock Grid.Column="3" Text="Query Type" VerticalAlignment="Center" HorizontalAlignment="left" Width="70"/>
             <Button Grid.Column="4" Content="Lookup" Margin="10" Click="Button_Click" Width="100" HorizontalAlignment="Left"/>
-            
-            <ComboBox x:Name="ComboBox" Grid.Column="3" Width="100" HorizontalAlignment="Left" Margin="175,0,0,0">
+
+            <ComboBox x:Name="ComboBox" Grid.Column="3" Width="100" HorizontalAlignment="Left" Margin="83,0,0,0">
                 <ComboBoxItem>ANY</ComboBoxItem>
                 <ComboBoxItem>A</ComboBoxItem>
                 <ComboBoxItem>AAAA</ComboBoxItem>

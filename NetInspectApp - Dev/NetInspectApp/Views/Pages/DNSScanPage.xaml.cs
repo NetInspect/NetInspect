@@ -24,9 +24,10 @@ namespace NetInspectApp.Views.Pages
         public class DnsResult
         {
             public string Name { get; set; }
-            public int Type { get; set; }
+            public string Type { get; set; }
             public int TTL { get; set; }
             public string Data { get; set; }
+            
         }
 
         public class PlaceholderTextBox : TextBox
