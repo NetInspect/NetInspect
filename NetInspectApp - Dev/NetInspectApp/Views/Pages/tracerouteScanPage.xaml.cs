@@ -9,6 +9,7 @@ using NetInspectApp.ViewModels;
 using NetInspectLib.Networking;
 using NetInspectLib.Types;
 using System;
+using Microsoft.Extensions.Hosting;
 
 namespace NetInspectApp.Views.Pages
 {
@@ -57,7 +58,14 @@ namespace NetInspectApp.Views.Pages
             {
                 foreach (Hop hop in traceroute)
                 {
-                    ViewModel.Results.Add($"{hop.number} - Hop: {hop.address} - Address: {hop.time}");
+                    var row = new traceScanResult
+                    {
+                        hopNum = hop.number.ToString(),
+                        hopAddress = hop.address.ToString(),
+                        hopTime = hop.time.ToString(),
+                        Other = ""
+                    };
+                    ViewModel.Results.Add(row);
 
                 }
 
@@ -67,5 +75,12 @@ namespace NetInspectApp.Views.Pages
                 // Handle the case when the traceroute fails
             }
         }
+    }
+    public class traceScanResult
+    {
+        public string? hopNum { get; set; }
+        public string hopAddress { get; set; }
+        public string? hopTime { get; set; }
+        public string? Other { get; set; }
     }
 }
