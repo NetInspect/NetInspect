@@ -32,16 +32,12 @@
 
             <TextBlock Grid.Column="0" Text="Host" VerticalAlignment="Center"/>
             <ui:TextBox Name="tcTextBox" Grid.Column="1" VerticalAlignment="Center" Margin="5" PlaceholderText="e.g 192.168.1.1"/>
-            <Button Grid.Column="2" Content="Scan" Margin="10"  />
+            <Button Grid.Column="2" Content="Scan" Margin="10" Click="Button_Click"  />
         </Grid>
         <Grid Grid.Row="1" Margin="10">
             <DataGrid x:Name="ResultsDataGrid" ItemsSource="{Binding Results}" AutoGenerateColumns="False" CanUserAddRows="False">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Hop" Binding="{Binding IpAddress}" Width="*"/>
-                    <DataGridTextColumn Header="1" Binding="{Binding PortNumber}" Width="*"/>
-                    <DataGridTextColumn Header="2" Binding="{Binding Status}" Width="*"/>
-                    <DataGridTextColumn Header="3" Binding="{Binding Status}" Width="*"/>
-                    <DataGridTextColumn Header="Hostname" Binding="{Binding Other}" Width="*"/>
+                    <DataGridTextColumn Header="Results" Width="*" Binding="{Binding .}" />
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>

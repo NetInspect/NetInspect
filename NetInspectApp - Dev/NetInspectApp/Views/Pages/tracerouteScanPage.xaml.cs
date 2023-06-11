@@ -6,6 +6,9 @@ using Wpf.Ui.Common.Interfaces;
 using NetInspectLib.Discovery;
 using System.Threading.Tasks;
 using NetInspectApp.ViewModels;
+using NetInspectLib.Networking;
+using NetInspectLib.Types;
+using System;
 
 namespace NetInspectApp.Views.Pages
 {
@@ -38,6 +41,31 @@ namespace NetInspectApp.Views.Pages
             }
         }
 
+        private async void Button_Click(object sender, RoutedEventArgs e)
+        {
+            // Get the hostname and maxHops from the TextBox and set appropriate values
+            string hostname = tcTextBox.Text;
+            int maxHops = 30; // Set the maximum number of hops according to your requirements
 
+            // Create an instance of the Traceroute class
+            Traceroute traceroute = new Traceroute();
+
+            // Perform the traceroute asynchronously
+            bool success = await traceroute.DoTraceroute(hostname, maxHops);
+
+            if (success)
+            {
+                foreach (Hop hop in traceroute)
+                {
+                    ViewModel.Results.Add($"{hop.number} - Hop: {hop.address} - Address: {hop.time}");
+
+                }
+
+            }
+            else
+            {
+                // Handle the case when the traceroute fails
+            }
+        }
     }
 }
