@@ -3,11 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using Wpf.Ui.Common.Interfaces;
 using System.Collections.Generic;
-using DnsClient;
-using DnsClient.Protocol;
 using NetInspectLib.Networking;
-using static NetInspectApp.Views.Pages.DNSScanPage;
-using static NetInspectLib.Networking.DnsLookup;
 
 namespace NetInspectApp.Views.Pages
 {
@@ -16,16 +12,22 @@ namespace NetInspectApp.Views.Pages
     /// </summary>
     public partial class DNSScanPage : INavigableView<ViewModels.DNSScanViewModel>
     {
-        public ViewModels.DNSScanViewModel ViewModel
-        {
-            get;
-        }
+        public ViewModels.DNSScanViewModel ViewModel { get; }
 
         public DNSScanPage(ViewModels.DNSScanViewModel viewModel)
         {
             ViewModel = viewModel;
             DataContext = ViewModel;
             InitializeComponent();
+        }
+
+        public class DnsResult
+        {
+            public string Name { get; set; }
+            public string Type { get; set; }
+            public int TTL { get; set; }
+            public string Data { get; set; }
+            
         }
 
         public class PlaceholderTextBox : TextBox
@@ -40,79 +42,70 @@ namespace NetInspectApp.Views.Pages
             }
         }
 
-
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private async void Button_Click(object sender, RoutedEventArgs e)
         {
             ViewModel.Results.Clear();
-            DnsLookup dnsLookup = new DnsLookup(HostTextBox2.Text);
+            DnsLookup dnsLookup = new DnsLookup();
 
-            QueryType queryType;
+            string queryType;
             if (ComboBox.SelectedItem == null)
             {
-                queryType = QueryType.ANY;
+                queryType = "ANY";
             }
             else
             {
                 switch (((ComboBoxItem)ComboBox.SelectedItem).Content.ToString())
                 {
                     case "A":
-                        queryType = QueryType.A;
+                        queryType = "A";
                         break;
                     case "AAAA":
-                        queryType = QueryType.AAAA;
+                        queryType = "AAAA";
                         break;
                     case "CNAME":
-                        queryType = QueryType.CNAME;
+                        queryType = "CNAME";
                         break;
                     case "MX":
-                        queryType = QueryType.MX;
+                        queryType = "MX";
                         break;
                     case "NS":
-                        queryType = QueryType.NS;
+                        queryType = "NS";
                         break;
                     case "PTR":
-                        queryType = QueryType.PTR;
+                        queryType = "PTR";
                         break;
                     case "SOA":
-                        queryType = QueryType.SOA;
+                        queryType = "SOA";
                         break;
                     case "TXT":
-                        queryType = QueryType.TXT;
+                        queryType = "TXT";
                         break;
                     case "ANY":
-                        queryType = QueryType.ANY;
+                        queryType = "ANY";
                         break;
                     default:
-                        queryType = QueryType.ANY;
+                        queryType = "ANY";
                         break;
                 }
             }
 
-            List<DnsRecord> results = dnsLookup.DoDNSLookup(HostTextBox1.Text, queryType);
-            if (results.Count == 0)
+            List<DnsLookup.DnsRecord> dnsRecords = await dnsLookup.DoDNSLookup(HostTextBox1.Text, queryType);
+
+            List<DnsResult> results = new List<DnsResult>();
+
+            foreach (var dnsRecord in dnsRecords)
             {
-                ResultsDataGrid.ItemsSource = null;
-                NoResultsTextBlock.Visibility = Visibility.Visible;
+                DnsResult result = new DnsResult
+                {
+                    Name = dnsRecord.Name,
+                    Type = dnsRecord.Type,
+                    TTL = dnsRecord.TTL,
+                    Data = dnsRecord.Data
+                };
+                results.Add(result);
             }
-            else
-            {
-                ResultsDataGrid.ItemsSource = results;
-                NoResultsTextBlock.Visibility = Visibility.Collapsed;
-            }
+
+            ViewModel.Results = results;
         }
-
-
-
-
-    }
-
-    // No longer needed
-    public class DnsResult
-    {
-        public string DomainName { get; set; }
-        public string RecordClass { get; set; }
-        public string RecordType { get; set; }
-        public string TimeToLive { get; set; }
-        public string Data { get; set; }
     }
 }
