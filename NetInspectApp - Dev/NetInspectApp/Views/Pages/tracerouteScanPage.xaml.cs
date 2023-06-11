@@ -44,14 +44,12 @@ namespace NetInspectApp.Views.Pages
 
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
-            // Get the hostname and maxHops from the TextBox and set appropriate values
+            ViewModel.Results.Clear();
             string hostname = tcTextBox.Text;
-            int maxHops = 30; // Set the maximum number of hops according to your requirements
+            int maxHops = 30; 
 
-            // Create an instance of the Traceroute class
+
             Traceroute traceroute = new Traceroute();
-
-            // Perform the traceroute asynchronously
             bool success = await traceroute.DoTraceroute(hostname, maxHops);
 
             if (success)
@@ -62,8 +60,8 @@ namespace NetInspectApp.Views.Pages
                     {
                         hopNum = hop.number.ToString(),
                         hopAddress = hop.address.ToString(),
-                        hopTime = hop.time.ToString(),
-                        Other = ""
+                        hopTime = hop.time.ToString()
+
                     };
                     ViewModel.Results.Add(row);
 
@@ -72,7 +70,13 @@ namespace NetInspectApp.Views.Pages
             }
             else
             {
-                // Handle the case when the traceroute fails
+                var errorMessage = new traceScanResult
+                {
+                    hopNum = "Error",
+                    hopAddress = "Failed to perform traceroute",
+                    hopTime = ""
+                };
+                ViewModel.Results.Add(errorMessage);
             }
         }
     }
@@ -81,6 +85,5 @@ namespace NetInspectApp.Views.Pages
         public string? hopNum { get; set; }
         public string hopAddress { get; set; }
         public string? hopTime { get; set; }
-        public string? Other { get; set; }
     }
 }

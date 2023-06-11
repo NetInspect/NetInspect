@@ -40,7 +40,7 @@
                     <DataGridTextColumn Header="Hop" Binding="{Binding hopNum}" Width="*"/>
                     <DataGridTextColumn Header="Address" Binding="{Binding hopAddress}" Width="*"/>
                     <DataGridTextColumn Header="Time" Binding="{Binding hopTime}" Width="*"/>
-                    <DataGridTextColumn Header="Other" Binding="{Binding Other}" Width="*"/>
+
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>
