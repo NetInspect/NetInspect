@@ -1,12 +1,9 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using Wpf.Ui.Common.Interfaces;
-using System.Windows.Shell;
 using NetInspectLib.Scanning;
 using System.Threading.Tasks;
-using NetInspectLib.Types;
 using System.Linq;
-using System.Drawing;
 
 namespace NetInspectApp.Views.Pages
 {
@@ -15,7 +12,6 @@ namespace NetInspectApp.Views.Pages
     /// </summary>
     public partial class PortScanPage : INavigableView<ViewModels.PortScanViewModel>
     {
-
         public ViewModels.PortScanViewModel ViewModel
         {
             get;
@@ -26,8 +22,6 @@ namespace NetInspectApp.Views.Pages
             ViewModel = viewModel;
             InitializeComponent();
             DataContext = ViewModel;
-
-
         }
 
         public class PlaceholderTextBox : TextBox
@@ -47,8 +41,6 @@ namespace NetInspectApp.Views.Pages
         private async void ScanButton_Click(object sender, RoutedEventArgs e)
         {
             ScanProgressBar.Value = 0;
-            
-
 
             ViewModel.Results.Clear();
             PortScan scaner = new PortScan();
@@ -56,16 +48,16 @@ namespace NetInspectApp.Views.Pages
             for (int i = 0; i < 100; i++)
             {
                 ViewModel.Progress = i;
-               await Task.Delay(10);
+                await Task.Delay(10);
             }
 
             Task<bool> scan = scaner.DoPortScan(HostTextBox.Text, PortsTextBox.Text);
             bool success = await scan;
             if (success)
             {
-               ScanProgressBar.Visibility = Visibility.Visible;
-               int totalPorts = scaner.Results.Sum(host => host.Ports.Count());
-               int scannedPorts = 0;
+                ScanProgressBar.Visibility = Visibility.Visible;
+                int totalPorts = scaner.Results.Sum(host => host.Ports.Count());
+                int scannedPorts = 0;
                 foreach (var host in scaner.Results)
                 {
                     foreach (var port in host.Ports)
@@ -79,8 +71,8 @@ namespace NetInspectApp.Views.Pages
                         };
                         ViewModel.Results.Add(row);
 
-                       scannedPorts++;
-                       ScanProgressBar.Value = scannedPorts * 100 / totalPorts;
+                        scannedPorts++;
+                        ScanProgressBar.Value = scannedPorts * 100 / totalPorts;
                     }
                 }
             }
@@ -88,10 +80,9 @@ namespace NetInspectApp.Views.Pages
             {
                 MessageBox.Show("No Results");
             }
-           ScanProgressBar.Visibility = Visibility.Hidden;
+            ScanProgressBar.Visibility = Visibility.Hidden;
         }
     }
-
 
     public class PortScanResult
     {
