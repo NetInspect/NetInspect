@@ -1,6 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using System;
 using System.Collections.ObjectModel;
+using System.Drawing;
+using System.Reflection.Metadata;
 using Wpf.Ui.Common;
 using Wpf.Ui.Controls;
 using Wpf.Ui.Controls.Interfaces;
@@ -84,7 +86,15 @@ namespace NetInspectApp.ViewModels
                     PageTag = "udpscan",
                     Icon = SymbolRegular.SoundWaveCircle24,
                     PageType = typeof(Views.Pages.UdpPage)
+                 },
+                      new NavigationItem()
+                 {
+                    Content = "Traceroute Scan",
+                    PageTag = "traceroutescan",
+                    Icon = SymbolRegular.ArrowRoutingRectangleMultiple20,
+                    PageType = typeof(Views.Pages.tracerouteScanPage)
                 }
+
             };
 
             NavigationFooter = new ObservableCollection<INavigationControl>

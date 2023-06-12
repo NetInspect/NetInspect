@@ -63,7 +63,8 @@ namespace NetInspectApp
                 services.AddScoped<ViewModels.whoisViewModel>();
                 services.AddScoped<Views.Pages.UdpPage>();
                 services.AddScoped<ViewModels.udpScanViewModel>();
-
+                services.AddScoped<Views.Pages.tracerouteScanPage>();
+                services.AddScoped<ViewModels.tracerouteScanViewModel>();
 
 
                 // Configuration
