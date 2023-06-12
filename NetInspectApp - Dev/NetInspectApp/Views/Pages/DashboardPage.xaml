@@ -35,7 +35,7 @@
             </ComboBox>
         </Grid>
         <Grid>
-            <DataGrid x:Name="Connections" AutoGenerateColumns="False" CanUserAddRows="False" Margin="10,334,-80,-386" Grid.ColumnSpan="2">
+            <DataGrid x:Name="Connections" AutoGenerateColumns="False" CanUserAddRows="False" Margin="0,334,-83,-386" SelectionChanged="Connections_SelectionChanged" HorizontalAlignment="Right" Width="780">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Local Endpoint" Width="*" />
                     <DataGridTextColumn Header="Remote Endpoint" Width="*" />

@@ -70,5 +70,10 @@ namespace NetInspectApp.Views.Pages
             //    Console.WriteLine($"\tProcess: {connection.ProcessName}");
             //}
         }
+
+        private void Connections_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }
