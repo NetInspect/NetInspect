@@ -43,22 +43,27 @@ namespace NetInspectApp.Views.Pages
 
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
-            // Clear existing results
+            ScanProgressBar.Value = 0;
+
             ViewModel.Results.Clear();
-            int scannedPorts = 0;
+            UDPScan scaner = new UDPScan();
 
-            UDPScan udpScan = new UDPScan();
-            Task<bool> scan = udpScan.DoUDPScan(udpTextBox.Text, "1024");
+            for (int i = 0; i < 100; i++)
+            {
+                ViewModel.Progress = i;
+                await Task.Delay(10);
+            }
+
+            Task<bool> scan = scaner.DoUDPScan(HostTextBox.Text, PortsTextBox.Text);
             bool success = await scan;
-
             if (success)
             {
                 ScanProgressBar.Visibility = Visibility.Visible;
-                int totalPorts = udpScan.results.Sum(host => host.Ports.Count());
-
-                foreach (Host host in udpScan.results)
+                int totalPorts = scaner.results.Sum(host => host.Ports.Count());
+                int scannedPorts = 0;
+                foreach (var host in scaner.results)
                 {
-                    foreach (Port port in host.Ports)
+                    foreach (var port in host.Ports)
                     {
                         var row = new UDPScanResult
                         {
@@ -78,10 +83,10 @@ namespace NetInspectApp.Views.Pages
             {
                 MessageBox.Show("No Results");
             }
-
             ScanProgressBar.Visibility = Visibility.Hidden;
         }
     }
+
     public class UDPScanResult
     {
         public string? IpAddress { get; set; }

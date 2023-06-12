@@ -18,6 +18,31 @@
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
-        <TextBlock Grid.Column="1" Margin="12,0,0,0" VerticalAlignment="Center" Text="NetInspect Dashbaord" />
+        <TextBlock Margin="10,10,582,0" VerticalAlignment="Top" Text="NetInspect Dashbaord" />
+        <Grid Grid.Row="0" Margin="10,23,-80,-3" Grid.ColumnSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="50" />
+                <ColumnDefinition Width="240" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="280" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Column="3" Text="Network Adapter:" VerticalAlignment="Top" HorizontalAlignment="Left" Width="101" Margin="160,16,0,0" />
+            <Button x:Name="Startbutton" Grid.Column="4" Content="Start" Margin="0,5,0,0" Click="Button_Click" Width="100" VerticalAlignment="Top" RenderTransformOrigin="0.52,0.127" Height="37" HorizontalAlignment="Right" />
+
+            <ComboBox x:Name="ComboBox" Grid.Column="3" Width="225" HorizontalAlignment="Left" Margin="266,5,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" MaxWidth="250">
+            </ComboBox>
+        </Grid>
+        <Grid>
+            <DataGrid x:Name="Connections" AutoGenerateColumns="False" CanUserAddRows="False" Margin="10,334,-80,-386" Grid.ColumnSpan="2">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Local Endpoint" Width="*" />
+                    <DataGridTextColumn Header="Remote Endpoint" Width="*" />
+                    <DataGridTextColumn Header="State" Width="*" />
+                    <DataGridTextColumn Header="Process" Width="*" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
     </Grid>
 </ui:UiPage>
