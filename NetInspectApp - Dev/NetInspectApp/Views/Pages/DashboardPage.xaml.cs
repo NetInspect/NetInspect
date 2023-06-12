@@ -1,10 +1,12 @@
 ﻿using NetInspectLib.Analysis;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net.NetworkInformation;
 using Wpf.Ui.Common.Interfaces;
 using Wpf.Ui.Controls;
+using System.Windows;
 
 namespace NetInspectApp.Views.Pages
 {
@@ -14,6 +16,7 @@ namespace NetInspectApp.Views.Pages
     public partial class DashboardPage : INavigableView<ViewModels.DashboardViewModel>
     {
         private TrafficAnalysis? traffic;
+        public List<Connection> connections = new List<Connection>();
 
         public ViewModels.DashboardViewModel ViewModel
         {
@@ -28,6 +31,8 @@ namespace NetInspectApp.Views.Pages
             var adapters = net_adapters();
             ComboBox.ItemsSource = adapters;
             ComboBox.SelectedIndex = 0;
+
+            //ConnectionsDataGrid.ItemsSource = connections;
         }
 
         public IEnumerable<string> net_adapters()
@@ -46,6 +51,7 @@ namespace NetInspectApp.Views.Pages
 
             if (toggle)
             {
+                ConnectionsDataGrid.Items.Clear();
                 traffic = new TrafficAnalysis(ComboBox.SelectedValue.ToString());
                 traffic.TrafficUpdated += TrafficUpdated;
                 traffic.Start();
@@ -56,24 +62,34 @@ namespace NetInspectApp.Views.Pages
             }
         }
 
-        private static void TrafficUpdated(object sender, TrafficEventArgs e)
+        public void TrafficUpdated(object sender, TrafficEventArgs e)
         {
-            //Console.Clear();
-            //Console.WriteLine($"Bytes sent: {e.BytesSent}");
-            //Console.WriteLine($"Bytes received: {e.BytesReceived}");
-            //Console.WriteLine($"First 5 Active connections:");
-            //foreach (var connection in e.ActiveConnections.Take(5))
-            //{
-            //    Console.WriteLine($"\tLocal Endpoint: {connection.LocalEndPoint}");
-            //    Console.WriteLine($"\tRemote Endpoint: {connection.RemoteEndPoint}");
-            //    Console.WriteLine($"\tState: {connection.State}");
-            //    Console.WriteLine($"\tProcess: {connection.ProcessName}");
-            //}
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                foreach (var c in e.ActiveConnections)
+                {
+                    var row = new Connection
+                    {
+                        LocalEndPoint = $"{c.LocalEndPoint.Address}:{c.LocalEndPoint.Port}",
+                        RemoteEndPoint = $"{c.RemoteEndPoint.Address}:{c.RemoteEndPoint.Port}",
+                        State = c.State.ToString(),
+                        Process = c.ProcessName
+                    };
+                    ConnectionsDataGrid.Items.Add(row);
+                }
+            });
         }
 
         private void Connections_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
+        }
 
+        public class Connection
+        {
+            public string? LocalEndPoint { get; set; }
+            public string? RemoteEndPoint { get; set; }
+            public string? State { get; set; }
+            public string? Process { get; set; }
         }
     }
 }

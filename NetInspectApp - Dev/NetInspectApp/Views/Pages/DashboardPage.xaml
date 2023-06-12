@@ -18,7 +18,7 @@
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
-        <TextBlock Margin="10,10,582,0" VerticalAlignment="Top" Text="NetInspect Dashbaord" />
+        <TextBlock Margin="10,10,582,0" VerticalAlignment="Top" Text="Live Traffic" />
         <Grid Grid.Row="0" Margin="10,23,-80,-3" Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="50" />
@@ -35,12 +35,12 @@
             </ComboBox>
         </Grid>
         <Grid>
-            <DataGrid x:Name="Connections" AutoGenerateColumns="False" CanUserAddRows="False" Margin="0,334,-83,-386" SelectionChanged="Connections_SelectionChanged" HorizontalAlignment="Right" Width="780">
+            <DataGrid x:Name="ConnectionsDataGrid" AutoGenerateColumns="False" CanUserAddRows="False" Margin="0,334,-83,-386" SelectionChanged="Connections_SelectionChanged" HorizontalAlignment="Right" Width="780" Height="200" MaxHeight="200">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Local Endpoint" Width="*" />
-                    <DataGridTextColumn Header="Remote Endpoint" Width="*" />
-                    <DataGridTextColumn Header="State" Width="*" />
-                    <DataGridTextColumn Header="Process" Width="*" />
+                    <DataGridTextColumn Header="Local Endpoint" Binding="{Binding LocalEndPoint}" Width="*" />
+                    <DataGridTextColumn Header="Remote Endpoint" Binding="{Binding RemoteEndPoint}" Width="*" />
+                    <DataGridTextColumn Header="State" Binding="{Binding State}" Width="*" />
+                    <DataGridTextColumn Header="Process" Binding="{Binding Process}" Width="*" />
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>
