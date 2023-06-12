@@ -5,6 +5,7 @@
     xmlns:local="clr-namespace:NetInspectApp.Views.Pages"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+
     Title="DashboardPage"
     d:DataContext="{d:DesignInstance local:DashboardPage, IsDesignTimeCreatable=False}"
     d:DesignHeight="450"
@@ -35,7 +36,11 @@
             </ComboBox>
         </Grid>
         <Grid>
-            <DataGrid x:Name="ConnectionsDataGrid" AutoGenerateColumns="False" CanUserAddRows="False" Margin="0,334,-83,-386" SelectionChanged="Connections_SelectionChanged" HorizontalAlignment="Right" Width="780" Height="200" MaxHeight="200">
+            <WpfPlot x:Name="TxGraph" HorizontalAlignment="Left" Margin="10,83,0,0" VerticalAlignment="Top" Height="279" Width="370" />
+            <WpfPlot x:Name="RxGraph" HorizontalAlignment="Left" Margin="413,83,0,0" VerticalAlignment="Top" Height="279" Width="370" />
+        </Grid>
+        <Grid Margin="0,0,10,0">
+            <DataGrid x:Name="ConnectionsDataGrid" AutoGenerateColumns="False" CanUserAddRows="False" Margin="0,383,-17,0" SelectionChanged="Connections_SelectionChanged" HorizontalAlignment="Right" Width="780" Height="150" MaxHeight="150" VerticalAlignment="Top">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Local Endpoint" Binding="{Binding LocalEndPoint}" Width="*" />
                     <DataGridTextColumn Header="Remote Endpoint" Binding="{Binding RemoteEndPoint}" Width="*" />

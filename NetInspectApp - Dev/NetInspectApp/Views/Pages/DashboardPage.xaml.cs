@@ -7,6 +7,7 @@ using System.Net.NetworkInformation;
 using Wpf.Ui.Common.Interfaces;
 using Wpf.Ui.Controls;
 using System.Windows;
+using ScottPlot;
 
 namespace NetInspectApp.Views.Pages
 {
@@ -16,7 +17,11 @@ namespace NetInspectApp.Views.Pages
     public partial class DashboardPage : INavigableView<ViewModels.DashboardViewModel>
     {
         private TrafficAnalysis? traffic;
-        public List<Connection> connections = new List<Connection>();
+        private List<double> TxGraphXData = new List<double>();
+        private List<double> TxGraphYData = new List<double>();
+
+        private List<double> RxGraphXData = new List<double>();
+        private List<double> RxGraphYData = new List<double>();
 
         public ViewModels.DashboardViewModel ViewModel
         {
@@ -32,7 +37,14 @@ namespace NetInspectApp.Views.Pages
             ComboBox.ItemsSource = adapters;
             ComboBox.SelectedIndex = 0;
 
-            //ConnectionsDataGrid.ItemsSource = connections;
+            TxGraph.Plot.Title("Kilobytes Sent");
+            RxGraph.Plot.Title("Kilobytes Received");
+
+            TxGraph.Plot.Style(ScottPlot.Style.Gray1);
+            RxGraph.Plot.Style(ScottPlot.Style.Gray1);
+
+            TxGraph.Plot.XAxis.DateTimeFormat(true);
+            RxGraph.Plot.XAxis.DateTimeFormat(true);
         }
 
         public IEnumerable<string> net_adapters()
@@ -64,8 +76,22 @@ namespace NetInspectApp.Views.Pages
 
         public void TrafficUpdated(object sender, TrafficEventArgs e)
         {
+            TxGraphYData.Add(e.BytesSent / 1000);
+            TxGraphXData.Add(DateTime.Now.ToOADate());
+
+            RxGraphYData.Add(e.BytesReceived / 1000);
+            RxGraphXData.Add(DateTime.Now.ToOADate());
+
             Application.Current.Dispatcher.Invoke(() =>
             {
+                TxGraph.Plot.Clear();
+                TxGraph.Plot.AddScatter(TxGraphXData.ToArray(), TxGraphYData.ToArray());
+                TxGraph.Refresh();
+
+                RxGraph.Plot.Clear();
+                RxGraph.Plot.AddScatter(RxGraphXData.ToArray(), RxGraphYData.ToArray());
+                RxGraph.Refresh();
+
                 foreach (var c in e.ActiveConnections)
                 {
                     var row = new Connection
