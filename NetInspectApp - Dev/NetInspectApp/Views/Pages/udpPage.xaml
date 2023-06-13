@@ -17,30 +17,33 @@
     mc:Ignorable="d">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0" Margin="10">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <TextBlock Grid.Column="0" Text="Host/s" VerticalAlignment="Center"/>
-            <ui:TextBox Name="udpTextBox" Grid.Column="1" VerticalAlignment="Center" Margin="5" PlaceholderText="e.g range"/>
-            <Button Grid.Column="2" Content="Scan" Margin="10"  />
+            <TextBlock Grid.Column="0" Text="Host/s" VerticalAlignment="Center" />
+            <ui:TextBox Name="HostTextBox" Grid.Column="1" VerticalAlignment="Center" Margin="5" PlaceholderText="e.g 192.168.1.1 or 192.168.1.0/24" />
+            <TextBlock Grid.Column="2" Text="Ports" VerticalAlignment="Center" Margin="10,0,0,0" />
+            <ui:TextBox Name="PortsTextBox" Grid.Column="3" VerticalAlignment="Center" Margin="5" PlaceholderText="e.g 80 or 1-1024" />
+            <Button Grid.Column="4" Content="Scan" Margin="10" Click="Button_Click" />
         </Grid>
         <Grid Grid.Row="1" Margin="10">
+            <ProgressBar  Name="ScanProgressBar" Height="5" Value="{Binding Progress}" Margin="0,-21,0,374" Minimum="1" Maximum="100" />
             <DataGrid x:Name="ResultsDataGrid" ItemsSource="{Binding Results}" AutoGenerateColumns="False" CanUserAddRows="False">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="IP Address" Binding="{Binding IpAddress}" Width="*"/>
-                    <DataGridTextColumn Header="Port" Binding="{Binding PortNumber}" Width="*"/>
-                    <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="*"/>
-                    <DataGridTextColumn Header="Other" Binding="{Binding Other}" Width="*"/>
+                    <DataGridTextColumn Header="IP Address" Binding="{Binding IpAddress}" Width="*" />
+                    <DataGridTextColumn Header="Port" Binding="{Binding PortNumber}" Width="*" />
+                    <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="*" />
+                    <DataGridTextColumn Header="Other" Binding="{Binding Other}" Width="*" />
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>

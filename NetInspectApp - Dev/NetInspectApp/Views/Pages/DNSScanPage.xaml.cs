@@ -98,7 +98,7 @@ namespace NetInspectApp.Views.Pages
                 DnsResult result = new DnsResult
                 {
                     Name = dnsRecord.Name,
-                    Type = dnsRecord.Type,
+                    Type = dnsRecord.RecordType,
                     TTL = dnsRecord.TTL,
                     Data = dnsRecord.Data
                 };
